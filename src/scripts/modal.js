@@ -5,7 +5,7 @@ export function openPopup(evt) {
 }
 
 // фнкция закрытия модального окна
-export function closedPopup(evt) {
+export function closePopup(evt) {
   evt.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", handleEscKey);
 }
@@ -14,18 +14,15 @@ export function closedPopup(evt) {
 function handleEscKey(event) {
   if (event.key == "Escape") {
 
-   const modWin = Array.from(document.querySelectorAll('.popup'));
-   const openPop = modWin.find((openedItem)=> {
-    return openedItem.classList.contains('popup_is-opened');
-   });
-   closedPopup(openPop);
+  const popIsOpen = document.querySelector('.popup_is-opened');
+  closePopup(popIsOpen);
   }
 }
 
 // Функция закрытия попапа по клику вне его области
 export function closeOverlay(evt) {
   if(evt.target.classList.contains('popup')) {
-    closedPopup(evt.target);
+    closePopup(evt.target);
   }
 }
 

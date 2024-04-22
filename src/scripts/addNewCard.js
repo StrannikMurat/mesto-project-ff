@@ -1,10 +1,10 @@
 // Импортировал функцию создания карточек
 import { createCardElement } from "./card";
-import { closedPopup } from "./modal";
+import { closePopup } from "./modal";
 
 // Функция добавления новой карточки
 export const addForm = document.querySelector('.popup_type_new-card .popup__form');
-const closeForm = document.querySelector('.popup_type_new-card');
+const closeFormAddNewCard = document.querySelector('.popup_type_new-card');
 export function addNewCard(evt) {
     evt.preventDefault();
 
@@ -29,7 +29,7 @@ export function addNewCard(evt) {
     // очистка диалогового окна
     addForm.reset();
     // закрытие диалоового окна
-    closedPopup(closeForm);
+    closePopup(closeFormAddNewCard);
 };
 
 
