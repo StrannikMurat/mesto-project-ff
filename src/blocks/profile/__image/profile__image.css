@@ -19,4 +19,24 @@
   .profile__image {
     margin-right: 0;
   }
+  #correct {
+    left: 175px;
+    top: 90px;
+  }
+}
+
+.wrapper:hover .profile__image {
+  cursor: pointer;
+  filter: brightness(0.2);
+}
+
+.profile__image_correct {
+  position: absolute;
+  top: 85px;
+  left: 45px;
+  display: none;
+  cursor: pointer;
+}
+.wrapper:hover .profile__image_correct {
+  display: block;
 }
