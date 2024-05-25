@@ -1,29 +1,31 @@
-import { avatarApi } from "./API";
+import { changeAvatarApi } from "./API";
 import { closePopup } from "./modal";
 import { popupTypeAvatar } from "..";
 import { changeButtonText } from "..";
 
-export const formAvatar = document.querySelector('.avatar__form');
-const inputTypeAvatar = formAvatar.querySelector('.popup__input_type_avatar');
-const profileImage = document.querySelector('.profile__image');
-const btnAvatar = formAvatar.querySelector('.popup__button');
-
+export const formAvatar = document.querySelector(".avatar__form");
+const inputTypeAvatar = formAvatar.querySelector(".popup__input_type_avatar");
+const profileImage = document.querySelector(".profile__image");
+const btnAvatar = formAvatar.querySelector(".popup__button");
 
 export function addNewAvatar(evt) {
-    evt.preventDefault();
-    changeButtonText(btnAvatar, true);
+  evt.preventDefault();
+  changeButtonText(btnAvatar, true);
 
-    avatarApi(inputTypeAvatar.value)
+  changeAvatarApi(inputTypeAvatar.value)
     .then((data) => {
-        profileImage.style.backgroundImage = `url('${data.avatar}')`;
+      profileImage.style.backgroundImage = `url('${data.avatar}')`;
+    })
+    .then(() => {
+      formAvatar.reset();
+    })
+    .then(() => {
+      closePopup(popupTypeAvatar);
     })
     .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        changeButtonText(btnAvatar, false);
-      })
-
-    formAvatar.reset()
-    closePopup(popupTypeAvatar);
+      console.log(err);
+    })
+    .finally(() => {
+      changeButtonText(btnAvatar, false);
+    });
 }

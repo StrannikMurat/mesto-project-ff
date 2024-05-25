@@ -1,10 +1,8 @@
 import { openCardPopup } from "..";
-import { config} from "./API";
-
-import { addCardDate } from "./API";
 import { deleteCardApi } from "./API";
 import { likeButtonApi } from "./API";
 import { delBtnApi } from "./API";
+import { userId } from "..";
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -18,7 +16,6 @@ export function createCardElement(
   const cardElement = cardTemplate
     .querySelector(".places__item")
     .cloneNode(true);
-
   const elementImage = cardElement.querySelector(".card__image");
   const elementTitle = cardElement.querySelector(".card__title");
   const likeButton = cardElement.querySelector(".card__like-button");
@@ -27,12 +24,9 @@ export function createCardElement(
   elementImage.src = cardData.link;
   elementImage.alt = cardData.name;
   elementTitle.textContent = cardData.name;
-  // countLikeBtn.textContent = cardData.likes.length;
   countLikeBtn.textContent = cardData.likes.length;
-
-  const idOwner = "183861d8f8356359396e2a15";
   
-  if(cardData.owner._id !== idOwner) {
+  if(cardData.owner._id !== userId) {
     deleteButton.remove();
   }
 
@@ -41,25 +35,30 @@ export function createCardElement(
       .catch((err) => {
         console.log(err);
       })
-  
+
       deleteCard(cardElement);
     });
+
+    const liked = cardData.likes.some((like) => like._id === userId);
+    if (liked) {
+      likeButton.classList.add("card__like-button_is-active");
+    }
   
   likeButton.addEventListener("click", function () {
     if(likeButton.classList.contains('card__like-button_is-active')) {
-      likeButton.classList.remove('card__like-button_is-active');
       delBtnApi(cardData._id)
       .then((data) => {
         countLikeBtn.textContent = data.likes.length;
+        likeButton.classList.remove('card__like-button_is-active');
       })
       .catch((err) => {
         console.log(err);
       })
     } else {
-      likeButton.classList.add('card__like-button_is-active');
       likeButtonApi(cardData._id)
       .then((data) => {
         countLikeBtn.textContent = data.likes.length;
+        likeButton.classList.add('card__like-button_is-active');
       })
       .catch((err) => {
         console.log(err);

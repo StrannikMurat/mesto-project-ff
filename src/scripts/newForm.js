@@ -16,25 +16,21 @@ export function handleFormSubmitAboutYourself(evt) {
   evt.preventDefault();
   changeButtonText(buttonName, true);
 
-  // Получите значение полей jobInput и nameInput из свойства value
-  const nameValue = nameInput.value;
-  const jobValue = jobInput.value;
-
-  // Вставьте новые значения с помощью textContent
-  nameDisplay.textContent = nameValue;
-  jobDisplay.textContent = jobValue;
-
-  closePopup(formElementEdit);
-
   const userData = {
-    name: nameDisplay.textContent,
-    about: jobDisplay.textContent,
+    name: nameInput.value,
+    about: jobInput.value,
   }
 
   updateUserData(userData)
     .then((data) => {
       data.name = userData.name;
       data.about = userData.about;
+
+      nameDisplay.textContent = data.name;
+      jobDisplay.textContent = data.about;
+    })
+    .then(() => {
+      closePopup(formElementEdit);
     })
     .catch((err) => {
       console.log(err);

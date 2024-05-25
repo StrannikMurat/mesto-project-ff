@@ -1,3 +1,5 @@
+export let userId;
+
 // импорт css
 import "./style/index.css";
 
@@ -21,6 +23,8 @@ import {
   clearValidation,
   validationConfig,
 } from "./scripts/validation";
+
+
 
 import { addNewAvatar } from "./scripts/newAvatar";
 import { formAvatar } from "./scripts/newAvatar";
@@ -111,9 +115,6 @@ closeCardPopup.addEventListener("click", function () {
   closePopup(openCard);
 });
 
-//Обработчик закрытия closeOverlay
-document.addEventListener("click", closeOverlay);
-
 profileImageCorrect.addEventListener('click', function() {
   openPopup(popupTypeAvatar);
   clearValidation(
@@ -134,7 +135,7 @@ addForm.addEventListener("submit", addNewCard);
 
 formAvatar.addEventListener('submit', addNewAvatar);
 
-enableValidation();
+enableValidation(validationConfig);
 
 import { getUserData } from "./scripts/API";
 import { getAllCards } from "./scripts/API";
@@ -144,6 +145,7 @@ Promise.all([getUserData(), getAllCards()])
   nameDisplay.textContent = user.name;
   jobDisplay.textContent = user.about;
   profileImage.style.backgroundImage = `url('${user.avatar}')`;
+  userId = user._id;
 
   cards.forEach((element) => {
     placesList.append(createCardElement(element));
@@ -157,27 +159,3 @@ Promise.all([getUserData(), getAllCards()])
 export function changeButtonText(button, isLoading) {
   button.textContent = isLoading ? "Сохранение..." : "Сохранить";
 }
-
-
-// export const popupTypeAvatar = document.querySelector('.popup_type_avatar');
-// const profileImageCorrect = document.querySelector('.profile__image_correct');
-// const closePopupTypeAvatar = popupTypeAvatar.querySelector('.popup__close');
-
-// profileImageCorrect.addEventListener('click', function() {
-//   openPopup(popupTypeAvatar);
-//   clearValidation(
-//     popupTypeAvatar.querySelector(validationConfig.formSelector),
-//     validationConfig
-//   );
-// })
-
-// closePopupTypeAvatar.addEventListener('click', function() {
-//   closePopup(popupTypeAvatar);
-// })
-
-// import { addNewAvatar } from "./scripts/newAvatar";
-// import { formAvatar } from "./scripts/newAvatar";
-
-// formAvatar.addEventListener('submit', addNewAvatar);
-
-

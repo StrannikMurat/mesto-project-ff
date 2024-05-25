@@ -2,12 +2,14 @@
 export function openPopup(evt) {
   evt.classList.add("popup_is-opened");
   document.addEventListener("keydown", handleEscKey);
+  document.addEventListener("click", closeOverlay);
 }
 
 // фнкция закрытия модального окна
 export function closePopup(evt) {
   evt.classList.remove("popup_is-opened");
   document.removeEventListener("keydown", handleEscKey);
+  document.removeEventListener("click", closeOverlay);
 }
 
 // Функция обработки нажатия клавиши Esc

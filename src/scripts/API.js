@@ -1,3 +1,5 @@
+import { checkResponse } from "./utils";
+
 export const config = {
   baseUrl: "https://nomoreparties.co/v1/wff-cohort-13",
   headers: {
@@ -11,27 +13,15 @@ export const getAllCards = () => {
     method: "GET",
     headers: config.headers
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  });
-};
+  .then(checkResponse)
+}
 
 export const getUserData = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "GET",
     headers: config.headers
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  });
+  .then(checkResponse)
 }
 
 export const updateUserData = (data) => {
@@ -43,13 +33,7 @@ export const updateUserData = (data) => {
       about: data.about
     })
   })
-  .then((res) => {
-    if (res.ok) {
-      return res.json();
-    }else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
+  .then(checkResponse)
 }
 
 export const addCardDate = (data) => {
@@ -61,13 +45,7 @@ export const addCardDate = (data) => {
       link: data.link
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
+  .then(checkResponse)
 }
 
 export const deleteCardApi = (cardId) => {
@@ -75,13 +53,7 @@ export const deleteCardApi = (cardId) => {
     method: "DELETE",
     headers: config.headers
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
+  .then(checkResponse)
 }
 
 export const likeButtonApi = (userId) => {
@@ -89,13 +61,7 @@ export const likeButtonApi = (userId) => {
     method: "PUT",
     headers: config.headers,
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
+  .then(checkResponse)
 }
 
 export const delBtnApi = (userId) => {
@@ -103,16 +69,10 @@ export const delBtnApi = (userId) => {
     method: "DELETE",
     headers: config.headers,
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
+  .then(checkResponse)
 }
 
-export const avatarApi = (avatar) => {
+export const changeAvatarApi = (avatar) => {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
     headers: config.headers,
@@ -120,13 +80,7 @@ export const avatarApi = (avatar) => {
       avatar: avatar
     })
   })
-  .then((res) => {
-    if(res.ok) {
-      return res.json();
-    }else {
-      return Promise.reject(`Ошибка: ${res.status}`);
-    }
-  })
+  .then(checkResponse)
 }
 
 

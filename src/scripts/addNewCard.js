@@ -1,6 +1,7 @@
 // Импортировал функцию создания карточек
 import { createCardElement } from "./card";
 import { closePopup } from "./modal";
+// import { userId } from "..";
 
 // dom узел контейнера
 import { placesList } from "..";
@@ -23,17 +24,21 @@ export function addNewCard(evt) {
   evt.preventDefault();
   changeButtonText(buttonNamePlace, true);
 
-
   // Объект с данными из инпутов
   const newCardDate = {
     name: cardNameInput.value,
     link: cardLinkInput.value,
   };
 
-
   addCardDate(newCardDate)
     .then((data) => {
-      placesList.prepend(createCardElement(data, data.owner._id));
+      placesList.prepend(createCardElement(data));
+    })
+    .then(() => {
+      addForm.reset();
+    })
+    .then(() => {
+      closePopup(closeFormAddNewCard);
     })
     .catch((err) => {
       console.log(err);
@@ -41,11 +46,4 @@ export function addNewCard(evt) {
     .finally(() => {
       changeButtonText(buttonNamePlace, false);
     });
-
-  // очистка диалогового окна
-
-  addForm.reset();
-
-  // закрытие диалоового окна
-  closePopup(closeFormAddNewCard);
 }
