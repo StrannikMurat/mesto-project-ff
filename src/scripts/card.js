@@ -9,10 +9,10 @@ const cardTemplate = document.querySelector("#card-template").content;
 // Функция создания карточки
 export function createCardElement(
   cardData,
+  userId,
   deleteCardCollback,
   cardLikeCollback,
   openCardPopupCollback,
-  userId
 ) {
 
   // Берём DOM узел, куда будем клонировать содержимое карточки
