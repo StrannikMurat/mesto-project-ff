@@ -148,7 +148,6 @@ export const getPromiseAllAboutUserAndCards = () => {
   
     cards.forEach((element) => {
       placesList.append(createCardElement(element, userId));
-      console.log(userId)
     });
   })
   .catch((err) => {

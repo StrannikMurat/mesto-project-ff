@@ -39,8 +39,6 @@ export function createCardElement(
     deleteButton.remove();
   }
 
-  console.log(userId);
-
     // Слушатель удаления карточки
     deleteButton.addEventListener("click", function () {
       deleteCardApi(cardData._id)
