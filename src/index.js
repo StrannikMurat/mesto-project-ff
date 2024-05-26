@@ -1,5 +1,3 @@
-export let userId;
-
 // импорт css
 import "./style/index.css";
 
@@ -28,6 +26,8 @@ import {
 
 import { addNewAvatar } from "./scripts/newAvatar";
 import { formAvatar } from "./scripts/newAvatar";
+
+export let userId;
 
 // dom узел добавления карточек
 export const placesList = document.querySelector(".places__list");
@@ -70,11 +70,11 @@ const profileImageCorrect = document.querySelector('.profile__image_correct');
 const closePopupTypeAvatar = popupTypeAvatar.querySelector('.popup__close');
 
 // функция открытия попапа карточки превью
-export function openCardPopup(evt) {
+export function openCardPopup(image, text) {
   openPopup(openCard);
-  popupImage.src = evt.link;
-  popupImage.alt = evt.name;
-  popupCaption.textContent = evt.name;
+  popupCaption.textContent = text.textContent;
+  popupImage.alt = text.textContent;
+  popupImage.src = image.src;
 }
 
 // открыть profile edin
@@ -108,8 +108,6 @@ popupCloseTypeNewCard.addEventListener("click", function () {
   closePopup(popupTypeNewCard);
 });
 
-
-
 // Обработчик закрытия попапа карточки превью
 closeCardPopup.addEventListener("click", function () {
   closePopup(openCard);
@@ -140,20 +138,26 @@ enableValidation(validationConfig);
 import { getUserData } from "./scripts/API";
 import { getAllCards } from "./scripts/API";
 
-Promise.all([getUserData(), getAllCards()])
-.then(([user, cards]) => {
-  nameDisplay.textContent = user.name;
-  jobDisplay.textContent = user.about;
-  profileImage.style.backgroundImage = `url('${user.avatar}')`;
-  userId = user._id;
-
-  cards.forEach((element) => {
-    placesList.append(createCardElement(element));
+export const getPromiseAllAboutUserAndCards = () => {
+  return Promise.all([getUserData(), getAllCards()])
+  .then(([user, cards]) => {
+    nameDisplay.textContent = user.name;
+    jobDisplay.textContent = user.about;
+    profileImage.style.backgroundImage = `url('${user.avatar}')`;
+    userId = user._id;
+  
+    cards.forEach((element) => {
+      placesList.append(createCardElement(element, userId));
+      console.log(userId)
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-})
-.catch((err) => {
-  console.log(err);
-});
+}
+
+getPromiseAllAboutUserAndCards();
+
 
 // Функция для изменения текста кнопки
 export function changeButtonText(button, isLoading) {
