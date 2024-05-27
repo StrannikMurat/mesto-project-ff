@@ -1,8 +1,6 @@
-import { openCardPopup} from "..";
 import { deleteCardApi } from "./API";
 import { likeButtonApi } from "./API";
 import { delBtnApi } from "./API";
-// import { userId } from "..";
 // Темплейт карточки
 const cardTemplate = document.querySelector("#card-template").content;
 
@@ -10,9 +8,7 @@ const cardTemplate = document.querySelector("#card-template").content;
 export function createCardElement(
   cardData,
   userId,
-  deleteCardCollback,
-  cardLikeCollback,
-  openCardPopupCollback,
+  openCardPopup
 ) {
 
   // Берём DOM узел, куда будем клонировать содержимое карточки

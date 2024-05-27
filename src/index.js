@@ -147,7 +147,7 @@ export const getPromiseAllAboutUserAndCards = () => {
     userId = user._id;
   
     cards.forEach((element) => {
-      placesList.append(createCardElement(element, userId));
+      placesList.append(createCardElement(element, userId, openCardPopup));
     });
   })
   .catch((err) => {
